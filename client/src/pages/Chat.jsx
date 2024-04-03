@@ -23,7 +23,7 @@ const Chat = () => {
     <>
       <Stack
         ref={containerRef}
-        BoxSizing={"border-box"}
+        boxSizing={"border-box"}
         height={"90%"}
         padding={"1rem"}
         spacing={"1rem"}
@@ -34,7 +34,7 @@ const Chat = () => {
         }}
       >
         {sampleMessage.map((i)=>(
-          <MessageComponent message={i} user={user} />
+          <MessageComponent key={i._id} message={i} user={user} />
         ))}
       </Stack>
       <form style={{ height: "10%" }}>

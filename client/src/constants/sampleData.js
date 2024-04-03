@@ -7,10 +7,7 @@ export const sampleChats = [
     members: ["1", "2"],
   },
   {
-    avatar: [
-      "https://w3schools.com/howto/img_avatar.png",
-      "https://w3schools.com/howto/img_avatar.png",
-    ],
+    avatar: ["https://w3schools.com/howto/img_avatar.png"],
     name: "Himanshu",
     _id: "2",
     groupChat: true,
@@ -50,14 +47,9 @@ export const sampleNotifications = [
 
 export const sampleMessage = [
   {
-    attachments: [
-      {
-        public_id: "hjedjk",
-        url: "https://w3schools.com/howto/img_avatar.png",
-      },
-    ],
+    attachments: [],
     content: "Have You reached?",
-    _id: 'ghshy67327dw789vw7',
+    _id: 'ghshy67327dw7fdsfdsw7',
     sender:{
       _id: 1,
       name:'Himanshu'
@@ -66,12 +58,7 @@ export const sampleMessage = [
     createdAt: "2022-02-10T09:00:00.000Z",
   },
   {
-    attachments: [
-      {
-        public_id: "hjedjk",
-        url: "https://w3schools.com/howto/img_avatar.png",
-      },
-    ],
+    attachments: [],
     content: "Hi Bro! I just reached",
     _id: 'ghshy67327dw789vw7',
     sender:{
@@ -84,12 +71,12 @@ export const sampleMessage = [
   {
     attachments: [
       {
-        public_id: "hjedjk",
+        public_id: "hjedjkff",
         url: "https://w3schools.com/howto/img_avatar.png",
       },
     ],
-    content: "What's up!",
-    _id: 'ghshy67327dw789vw7',
+    
+    _id: 'ghshy673dsfgkly894e',
     sender:{
       _id: 23,
       name:'Shani'
