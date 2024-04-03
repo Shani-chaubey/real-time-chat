@@ -5,7 +5,9 @@ import { transformImage } from "../../lib/features";
 const AvatarCrad = ({ avatar = [], max = 4 }) => {
   return (
     <Stack direction={"row"} spacing={0.5}>
-      <AvatarGroup max={max}>
+      <AvatarGroup max={max} sx={{
+        position:'relative'
+      }}>
       <Box width={'5rem'} height={'3rem'}>
 
       </Box>
@@ -18,10 +20,7 @@ const AvatarCrad = ({ avatar = [], max = 4 }) => {
               width: "3rem",
               height: "3rem",
               position: 'absolute',
-              left:{
-                xs:`${1+index}rem`,
-                sm:`${index}rem`
-              }
+              
             }}
           />
         ))}

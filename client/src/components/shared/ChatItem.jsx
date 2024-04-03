@@ -21,7 +21,7 @@ const ChatItem = ({avatar=[], name, _id, groupChat, sameSender, isOnline, newMes
      }}>
         <AvatarCrad avatar={avatar} />
         <Stack>
-            <Typography>
+            <Typography color={'white'}>
               {name}
             </Typography>
             {
@@ -33,7 +33,7 @@ const ChatItem = ({avatar=[], name, _id, groupChat, sameSender, isOnline, newMes
                 width:'10px',
                 height:'10px',
                 borderRadius:'50%',
-                backgroundColor:'green',
+                backgroundColor:'blue',
                 position:'absolute',
                 right:'1rem',
                 top:'50%',

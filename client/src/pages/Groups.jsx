@@ -21,7 +21,7 @@ import {
 import React, { Suspense, lazy, memo, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import AvatarCrad from "./../components/shared/AvatarCrad";
-import { orange } from "./../constants/color";
+import { bgGradient, orange } from "./../constants/color";
 import { sampleChats, sampleUsers } from "./../constants/sampleData";
 import UserItem from "../components/shared/UserItem";
 
@@ -60,8 +60,10 @@ const Groups = () => {
   };
 
   useEffect(() => {
-    setGroupName(`Group Name ${chatId}`);
-    setGroupNameUpdatedValue(`Group Value ${chatId}`);
+    if (chatId) {
+      setGroupName(`Group Name ${chatId}`);
+      setGroupNameUpdatedValue(`Group Value ${chatId}`);
+    }
     return () => {
       setGroupName("");
       setGroupNameUpdatedValue(``);
@@ -84,6 +86,10 @@ const Groups = () => {
   const deleteHandler = () => {
     console.log("deleteHandler");
     closeConfirmDeleteHandler();
+  };
+
+  const removeMemberHandler = (id) => {
+    console.log("removeMemberHandler", id);
   };
 
   const IconBtns = (
@@ -196,9 +202,9 @@ const Groups = () => {
             xs: "none",
             sm: "block",
           },
+          overflowY:'scroll'
         }}
         sm={4}
-        bgcolor={orange}
       >
         <GroupsList myGroups={sampleChats} chatId={chatId} />
       </Grid>
@@ -239,11 +245,17 @@ const Groups = () => {
               }}
             >
               {sampleUsers.map((user, index) => (
-                <UserItem user={user} key={index} isAdded styling={{
-                  boxShadow: '0 0 0.5 rgba(0,0,0,0.2)',
-                  padding: '1rem 2rem',
-                  borderRadius: '1rem',
-                }} />
+                <UserItem
+                  user={user}
+                  key={index}
+                  isAdded
+                  styling={{
+                    boxShadow: "0 0 0.5 rgba(0,0,0,0.2)",
+                    padding: "1rem 2rem",
+                    borderRadius: "1rem",
+                  }}
+                  handler={removeMemberHandler}
+                />
               ))}
             </Stack>
             {ButtonGroup}
@@ -276,6 +288,7 @@ const Groups = () => {
             xs: "block",
             sm: "none",
           },
+          
         }}
       >
         <GroupsList w={"50vw"} myGroups={sampleChats} chatId={chatId} />
@@ -285,7 +298,10 @@ const Groups = () => {
 };
 
 const GroupsList = ({ w = "100%", myGroups, chatId }) => (
-  <Stack width={w}>
+  <Stack width={w} sx={{
+    backgroundImage: bgGradient,
+    height:'100vh'
+  }}>
     {myGroups.length > 0 ? (
       myGroups.map((group) => (
         <GroupListItem group={group} chatId={chatId} key={group._id} />
@@ -300,6 +316,7 @@ const GroupListItem = memo(({ group, chatId }) => {
   const { name, avatar, _id } = group;
   return (
     <Link
+      style={{ textDecoration: "none" }}
       to={`?group=${_id}`}
       onClick={(e) => {
         if (chatId === _id) e.preventDefault();
@@ -312,7 +329,7 @@ const GroupListItem = memo(({ group, chatId }) => {
         padding={"0.5rem"}
       >
         <AvatarCrad avatar={avatar} />
-        <Typography>{name}</Typography>
+        <Typography color="white">{name}</Typography>
       </Stack>
     </Link>
   );
