@@ -15,86 +15,86 @@ export const sampleChats = [
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu and John",
     _id: "3",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 2",
     _id: "4",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 3",
     _id: "5",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 4",
     _id: "6",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 5",
     _id: "7",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 6",
     _id: "8",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 7",
     _id: "9",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 8",
     _id: "10",
     groupChat: true,
     members: ["1", "2"],
   },{
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 9",
     _id: "11",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 10",
     _id: "12",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 11",
     _id: "13",
     groupChat: true,
     members: ["1", "2"],
   },
   {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
-    name: "Himanshu",
+    name: "Himanshu 12",
     _id: "14",
     groupChat: true,
-    members: ["14", "2"],
+    members: ["1", "2"],
   },
 ];
 
@@ -145,8 +145,8 @@ export const sampleMessage = [
     content: "Hi Bro! I just reached",
     _id: 'ghshy67327dw789vw7',
     sender:{
-      _id: 23,
-      name:'Shani'
+      _id: 2,
+      name:'Shivam'
     },
     chat: "chatId",
     createdAt: "2023-02-10T09:00:00.000Z",
@@ -168,3 +168,20 @@ export const sampleMessage = [
     createdAt: "2023-02-10T09:00:00.000Z",
   },
 ];
+
+export const dashboardData = {
+  users:[{
+    avatar: "https://w3schools.com/howto/img_avatar.png",
+    name: "John Doe",
+    _id: "1",
+    username:'John Doe',
+    groups:10
+  },
+  {
+    avatar: "https://w3schools.com/howto/img_avatar.png",
+    name: "Himanshu",
+    _id: "2",
+    username:'Himanshu',
+    groups:30
+  },]
+}
