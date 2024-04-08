@@ -1,10 +1,10 @@
+import { Avatar, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
 import Table from "../../components/shared/Table";
-import { Avatar, Stack } from "@mui/material";
 import { dashboardData } from "../../constants/sampleData";
 import { transformImage } from "../../lib/features";
-import AvatarCrad from './../../components/shared/AvatarCrad';
+import AvatarCrad from "./../../components/shared/AvatarCrad";
 
 const columns = [
   {
@@ -19,7 +19,7 @@ const columns = [
     headerClassName: "table-header",
     width: 150,
     renderCell: (params) => (
-      <Avatar alt={params.row.name} src={params.row.avatar} />
+      <Avatar alt={params.row.name} avatar={params.row.avatar} />
     ),
   },
   {
@@ -55,7 +55,10 @@ const columns = [
     headerClassName: "table-header",
     width: 250,
     renderCell: (params) => (
-      <AvatarCrad max={100} avatar={params.row.members} />
+      <Stack direction={"row"} alignItems={"center"} spacing={"2rem"}>
+        <Avatar alt={params.row.creator.name} src={params.row.creator.avatar} />
+        <span>{params.row.creator.name}</span>
+      </Stack>
     ),
   },
 ];
@@ -64,10 +67,15 @@ const ChatManagement = () => {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     setRows(
-      dashboardData.users.map((item) => ({
+      dashboardData.chats.map((item) => ({
         ...item,
         id: item._id,
-        avatar: transformImage(item.avatar, 50),
+        avatar: item.avatar.map((i) => transformImage(i, 50)),
+        members: item.members.map((i) => transformImage(i.avatar, 50)),
+        creator: {
+          name: item.creator.name,
+          avatar: transformImage(item.creator.avatar, 50),
+        },
       }))
     );
   }, []);

@@ -68,7 +68,8 @@ export const sampleChats = [
     _id: "10",
     groupChat: true,
     members: ["1", "2"],
-  },{
+  },
+  {
     avatar: ["https://w3schools.com/howto/img_avatar.png"],
     name: "Himanshu 9",
     _id: "11",
@@ -132,10 +133,10 @@ export const sampleMessage = [
   {
     attachments: [],
     content: "Have You reached?",
-    _id: 'ghshy67327dw7fdsfdsw7',
-    sender:{
+    _id: "ghshy67327dw7fdsfdsw7",
+    sender: {
       _id: 1,
-      name:'Himanshu'
+      name: "Himanshu",
     },
     chat: "chatId",
     createdAt: "2022-02-10T09:00:00.000Z",
@@ -143,10 +144,10 @@ export const sampleMessage = [
   {
     attachments: [],
     content: "Hi Bro! I just reached",
-    _id: 'ghshy67327dw789vw7',
-    sender:{
+    _id: "ghshy67327dw789vw7",
+    sender: {
       _id: 2,
-      name:'Shivam'
+      name: "Shivam",
     },
     chat: "chatId",
     createdAt: "2023-02-10T09:00:00.000Z",
@@ -158,11 +159,11 @@ export const sampleMessage = [
         url: "https://w3schools.com/howto/img_avatar.png",
       },
     ],
-    
-    _id: 'ghshy673dsfgkly894e',
-    sender:{
+
+    _id: "ghshy673dsfgkly894e",
+    sender: {
       _id: 23,
-      name:'Shani'
+      name: "Shani",
     },
     chat: "chatId",
     createdAt: "2023-02-10T09:00:00.000Z",
@@ -170,18 +171,109 @@ export const sampleMessage = [
 ];
 
 export const dashboardData = {
-  users:[{
-    avatar: "https://w3schools.com/howto/img_avatar.png",
-    name: "John Doe",
-    _id: "1",
-    username:'John Doe',
-    groups:10
-  },
-  {
-    avatar: "https://w3schools.com/howto/img_avatar.png",
-    name: "Himanshu",
-    _id: "2",
-    username:'Himanshu',
-    groups:30
-  },]
-}
+  users: [
+    {
+      avatar: "https://w3schools.com/howto/img_avatar.png",
+      name: "John Doe",
+      _id: "1",
+      username: "John Doe",
+      groups: 10,
+    },
+    {
+      avatar: "https://w3schools.com/howto/img_avatar.png",
+      name: "Himanshu",
+      _id: "2",
+      username: "Himanshu",
+      groups: 30,
+    },
+  ],
+  chats: [
+    {
+      avatar: "https://w3schools.com/howto/img_avatar.png",
+      name: "John Doe",
+      _id: "1",
+      groupChat: false,
+      members: [
+        {
+          avatar: "https://w3schools.com/howto/img_avatar.png",
+          _id: "1",
+        },
+        {
+          avatar: "https://w3schools.com/howto/img_avatar.png",
+          _id: "2",
+        },
+      ],
+      totalMembers: 2,
+      totalMessages: 20,
+      creator: {
+        avatar: "https://w3schools.com/howto/img_avatar.png",
+        name: "John Doe",
+      },
+    },
+    {
+      avatar: "https://w3schools.com/howto/img_avatar.png",
+      name: "Himanshu",
+      _id: "2",
+      groupChat: false,
+      members: [
+        {
+          avatar: "https://w3schools.com/howto/img_avatar.png",
+          _id: "1",
+        },
+        {
+          avatar: "https://w3schools.com/howto/img_avatar.png",
+          _id: "2",
+        },
+      ],
+      totalMembers: 5,
+      totalMessages: 60,
+      creator: {
+        avatar: "https://w3schools.com/howto/img_avatar.png",
+        name: "Himanshu",
+      },
+    },
+  ],
+  messages: [
+    {
+      attachments: [],
+      content: "Hi Bro! I just reached",
+      _id: "ghshy67327dw789vw7",
+      sender: {
+        avatar: "https://w3schools.com/howto/img_avatar.png",
+        name: "Shivam",
+      },
+      chat: "chatId",
+      groupChat: false,
+      createdAt: "2023-02-10T09:00:00.000Z",
+    },
+    {
+      attachments: [],
+      content: "Hi Bro! I just reached",
+      _id: "ghshy67327dw789vw7",
+      sender: {
+        avatar: "https://w3schools.com/howto/img_avatar.png",
+        name: "Shivam",
+      },
+      chat: "chatId",
+      groupChat:false,
+      createdAt: "2023-02-10T09:00:00.000Z",
+    },
+    {
+      attachments: [
+        {
+          public_id: "hjedjkff",
+          url: "https://w3schools.com/howto/img_avatar.png",
+        },
+      ],
+
+      _id: "ghshy673dsfgkly894e",
+      sender: {
+        avatar: "https://w3schools.com/howto/img_avatar.png",
+        name: "Shani",
+      },
+      chat: "chatId",
+      groupChat:false,
+      createdAt: "2023-02-10T09:00:00.000Z",
+    },
+  ],
+};

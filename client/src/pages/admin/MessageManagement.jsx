@@ -1,5 +1,10 @@
-import React from 'react'
-import AdminLayout from '../../components/layout/AdminLayout'
+import React, { useEffect, useState } from "react";
+import AdminLayout from "../../components/layout/AdminLayout";
+import Table from "../../components/shared/Table";
+import { Avatar, Stack } from "@mui/material";
+import { dashboardData } from "../../constants/sampleData";
+import { fileFormat } from "../../lib/features";
+import RenderAttachment from "./../../components/shared/RenderAttachment";
 
 const columns = [
   {
@@ -9,13 +14,31 @@ const columns = [
     width: 200,
   },
   {
-    field: "avatar",
-    headerName: "Avatar",
+    field: "attachments",
+    headerName: "Attachments",
     headerClassName: "table-header",
-    width: 150,
-    renderCell: (params) => (
-      <Avatar alt={params.row.name} src={params.row.avatar} />
-    ),
+    width: 200,
+    renderCell: (params) => {
+      const { attachments } = params.row;
+      return attachments?.length > 0
+        ? attachments.map((i) => {
+            const url = i.url;
+            const file = fileFormat(url);
+            return (
+              <Box>
+                <a
+                  href={i.url}
+                  download
+                  target="_black"
+                  style={{ color: "black" }}
+                >
+                  {RenderAttachment(file, url)}
+                </a>
+              </Box>
+            );
+          })
+        : "No Attachments";
+    },
   },
   {
     field: "content",
@@ -29,7 +52,7 @@ const columns = [
     headerClassName: "table-header",
     width: 200,
     renderCell: (params) => (
-      <Stack>
+      <Stack spacing={"1rem"} direction={"row"} alignItems={"center"}>
         <Avatar alt={params.row.sender.name} src={params.row.sender.avatar} />
         <span>{params.row.sender.name}</span>
       </Stack>
@@ -56,11 +79,30 @@ const columns = [
 ];
 
 const MessageManagement = () => {
+  const [rows, setRows] = useState([{}]);
+  useEffect(() => {
+    setRows(
+      dashboardData.messages.map((item) => ({
+        ...item,
+        id: item._id,
+        sender: {
+          name: item.creator.name,
+          avatar: transformImage(item.sender.avatar, 50),
+        },
+        createdAt: moment(item.createdAt).format("DD/MM/YYYY hh:mm:ss"),
+      }))
+    );
+  }, []);
   return (
     <AdminLayout>
-      <div>MessageManagement</div>
+      <Table
+        heading={"all Chats"}
+        columns={columns}
+        rows={rows}
+        rowHeight={200}
+      />
     </AdminLayout>
-  )
-}
+  );
+};
 
-export default MessageManagement
+export default MessageManagement;

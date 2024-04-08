@@ -4,7 +4,11 @@ import { Container, Paper, Typography } from "@mui/material";
 
 const Table = ({ rows, columns, heading, rowHeight = 52 }) => {
   return (
-    <Container sx={{ height: "100vh" }}>
+    <Container
+      sx={{
+        height: "100vh",
+      }}
+    >
       <Paper
         elevation={3}
         sx={{
@@ -20,20 +24,24 @@ const Table = ({ rows, columns, heading, rowHeight = 52 }) => {
         <Typography
           textAlign={"center"}
           variant="h4"
-          sx={{ margin: "2rem", textTransform: "uppercase" }}
+          sx={{
+            margin: "2rem",
+            textTransform: "uppercase",
+          }}
         >
           {heading}
         </Typography>
         <DataGrid
           rows={rows}
           columns={columns}
+          rowHeight={rowHeight}
           style={{
             height: "80%",
           }}
           sx={{
             border: "none",
             ".table-header": {
-              bgcolor: "#F5F5F5",
+              bgcolor: '#f5f5f5',
               color: "white",
             },
           }}

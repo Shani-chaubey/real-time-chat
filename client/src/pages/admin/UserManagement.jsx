@@ -48,7 +48,7 @@ const columns = [
 ];
 
 const UserManagement = () => {
-  const [ rows, setRows ] = useState([ ]);
+  const [rows, setRows] = useState([]);
   useEffect(() => {
     setRows(
       dashboardData.users.map((item) => ({
@@ -60,7 +60,12 @@ const UserManagement = () => {
   }, []);
   return (
     <AdminLayout>
-      <Table heading={"all users"} columns={columns} rows={rows} rowHeight={50} />
+      <Table
+        heading={"all users"}
+        columns={columns}
+        rows={rows}
+        rowHeight={50}
+      />
     </AdminLayout>
   );
 };
