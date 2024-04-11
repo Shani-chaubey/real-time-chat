@@ -31,5 +31,8 @@ const emitEvent = (req,event,users,data)=>{
   console.log("event",event)
 }
 
+const deletFilesFromCloudinary = async(cloudinary_id)=>{
 
-export { connectDB, sendToken, emitEvent };
+}
+
+export { connectDB, sendToken, emitEvent, deletFilesFromCloudinary };
