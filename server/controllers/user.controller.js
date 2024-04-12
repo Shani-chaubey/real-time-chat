@@ -3,6 +3,8 @@ import { TryCatch } from "../middlewares/error.js";
 import { User } from "../models/user.model.js";
 import { sendToken } from '../utils/features.js';
 import { ErrorHandler } from '../middlewares/utility.js';
+import { Chat } from '../models/chat.model.js';
+import { getOtherMember } from '../lib/Helper.js';
 
 export const newUser = TryCatch(async(req, res, next) => {
   const { name, username, password, bio } = req.body;
@@ -69,14 +71,25 @@ export const logOut = TryCatch(async (req, res) => {
 export const searchUser = TryCatch(async (req, res, next) => {
     const { name } = req.query;
     
-    const users = await User.find({
-        name: { $regex: name, $options: "i" },
+    const allChats  = await Chat.find({ groupChat: false, members: { $in : req.user._id } ,  })
+
+    // All users with whome i have a chat
+    const allUserFromMyChats = allChats.map(chat => chat.members).flat()
+    const getFrineds = []
+    allUserFromMyChats.find((user) => {
+        if( user.toString() !== req.user._id.toString() ){
+            getFrineds.push(user)
+        }
     })
 
+    // All users except me and my friends
+    const allUsersExceptMeAndFriends = await User.find({ _id: { $nin: [...getFrineds, req.user._id] }, name: { $regex: name, $options: "i" } })
+    const remainingUsers = allUsersExceptMeAndFriends.map(i=>({ _id: i._id, name: i.name, avatar: i.avatar.url}))
+    
     res.status(200).json({
         success: true,
-        count: users.length,
-        users
+        getFrineds,
+        remainingUsers
     })
 
 })

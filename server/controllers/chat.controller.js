@@ -14,11 +14,6 @@ import {
 
 export const newGroupChat = TryCatch(async (req, res, next) => {
   const { name, members } = req.body;
-  if (members.length < 2) {
-    return next(
-      new ErrorHandler("At least 3 members are required to form a group chat")
-    );
-  }
 
   const allMembers = [...members, req.user._id];
   await Chat.create({
@@ -262,6 +257,30 @@ export const sendAttachments = TryCatch(async (req, res, next) => {
   });
 });
 
+export const getMessages = TryCatch(async (req, res, next) => {
+  const chatId = req.params.id;
+  const { page = 1 } = req.query;
+  const limit = 20;
+  const skip = (page - 1) * limit;
+
+  const messages = await Message.find({ chat: chatId })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .populate("sender", "name avatar")
+    .lean();
+
+  const totalMessagesCount = await Message.countDocuments({ chat: chatId });
+  const totalPages = Math.ceil(totalMessagesCount / limit);
+
+  return res.status(200).json({
+    success: true,
+    messages: messages.reverse(),
+    totalMessagesCount,
+    totalPages,
+  });
+});
+
 export const getChatDetails = TryCatch(async (req, res, next) => {
   if (req.query.populate === "true") {
     const chat = await Chat.findById(req.params.id)
@@ -364,26 +383,4 @@ export const deleteChat = TryCatch(async (req, res, next) => {
   });
 });
 
-export const getMessages = TryCatch(async (req, res, next) => {
-    const chatId = req.params.id;
-    const { page = 1 } = req.query;
-    const limit = 20;
-    const skip = (page - 1) * limit;
 
-    const messages = await Message.find({ chat: chatId }) 
-      .sort({ createdAt: -1})
-      .skip(skip)
-      .limit(limit)
-      .populate("sender", "name avatar")
-      .lean()
-
-    const totalMessagesCount = await Message.countDocuments({ chat: chatId });
-    const totalPages = Math.ceil(totalMessagesCount / limit);
-
-    return res.status(200).json({
-      success: true,
-      messages: messages.reverse(),
-      totalMessagesCount,
-      totalPages
-    })
-})
