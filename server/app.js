@@ -6,7 +6,8 @@ import { connectDB } from './utils/features.js'
 import { errorMiddleware } from './middlewares/error.js'
 import userRoute from './routes/user.routes.js'
 import chatRoute from './routes/chat.routes.js'
-import { createGroupChats, createMessages, createMessagesInAChat, createSingleChats } from './seeders/chat.js'
+import adminRoute from './routes/admin.routes.js'
+
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/user', userRoute)
 app.use('/chat', chatRoute)
+app.use('/admin', adminRoute)
 
 app.use(errorMiddleware)
 

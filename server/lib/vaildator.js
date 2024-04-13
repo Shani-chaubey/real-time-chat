@@ -58,9 +58,22 @@ export const chatIdValidator = () => [
     param('id',' Please Enter Chat ID').notEmpty(),
 ];
 
+export const userIdValidator = () => [
+    body('userId',' Please Enter User ID').notEmpty(),
+];
+
 export const renameGroupValidator = () => [
     param('id',' Please Enter Chat ID').notEmpty(),
     body('name',' Please Enter Group Name').notEmpty(),
+];
+
+export const acceptRequestValidator = () => [
+    body('requestId',' Please Enter Request ID').notEmpty(),
+    body('accept').notEmpty().withMessage('Please Accept').isBoolean().withMessage('Accept must be Boolean'),
+];
+
+export const adminLoginValidator = () => [
+    body('secretKey',' Please Enter Secret Key').notEmpty(),
 ];
 
 
