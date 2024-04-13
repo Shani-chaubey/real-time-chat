@@ -13,6 +13,7 @@ dotenv.config()
 
 const MongoURI = process.env.MONGODB
 const port = process.env.PORT
+const envMode = process.env.NODE_ENV.trim() || 'PRODUCTION'
 
 connectDB(MongoURI)
 
@@ -30,5 +31,7 @@ app.use('/admin', adminRoute)
 app.use(errorMiddleware)
 
 app.listen(port, () => {
-    console.log(`Server is running on port : ${port}`)
+    console.log(`Server is running on port : ${port} in ${process.env.NODE_ENV} Mode`)
 }) 
+
+export { envMode }

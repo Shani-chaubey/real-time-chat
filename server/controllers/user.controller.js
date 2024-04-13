@@ -10,6 +10,9 @@ import { getOtherMember } from "../lib/Helper.js";
 
 export const newUser = TryCatch(async (req, res, next) => {
   const { name, username, password, bio } = req.body;
+  const file = req.file
+
+  if(!file) return next(new ErrorHandler("Please upload a profile picture"))
 
   if (!name || !username || !password) {
     return next(new ErrorHandler("Please fill out all the fields"));
