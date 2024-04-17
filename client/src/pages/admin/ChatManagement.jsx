@@ -67,14 +67,14 @@ const ChatManagement = () => {
   const [rows, setRows] = useState([]);
   useEffect(() => {
     setRows(
-      dashboardData.chats.map((item) => ({
-        ...item,
-        id: item._id,
-        avatar: item.avatar.map((i) => transformImage(i, 50)),
-        members: item.members.map((i) => transformImage(i.avatar, 50)),
+      dashboardData.chats.map((i) => ({
+        ...i,
+        id: i._id,
+        avatar: i.avatar.map((i) => transformImage(i, 50)),
+        members: i.members.map((i) => transformImage(i.avatar, 50)),
         creator: {
-          name: item.creator.name,
-          avatar: transformImage(item.creator.avatar, 50),
+          name: i.creator.name,
+          avatar: transformImage(i.creator.avatar, 50),
         },
       }))
     );

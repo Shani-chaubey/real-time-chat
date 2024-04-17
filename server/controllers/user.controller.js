@@ -1,36 +1,40 @@
 import bcrypt from "bcrypt";
 import { TryCatch } from "../middlewares/error.js";
 import { User } from "../models/user.model.js";
-import { emitEvent, sendToken } from "../utils/features.js";
+import {
+  emitEvent,
+  sendToken,
+  uploadFilesToCloudinary,
+} from "../utils/features.js";
 import { ErrorHandler } from "../middlewares/utility.js";
 import { Chat } from "../models/chat.model.js";
 import { Request } from "../models/request.model.js";
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
-import { getOtherMember } from "../lib/Helper.js";
+import { getOtherMember } from "../lib/helper.js";
 
 export const newUser = TryCatch(async (req, res, next) => {
   const { name, username, password, bio } = req.body;
-  const file = req.file
 
-  if(!file) return next(new ErrorHandler("Please upload a profile picture"))
+  const file = req.file;
 
-  if (!name || !username || !password) {
-    return next(new ErrorHandler("Please fill out all the fields"));
-  }
+  if (!file) return next(new ErrorHandler("Please Upload Avatar"));
 
-  const existingUser = await User.findOne({ username });
-
-  if (existingUser) {
-    return next(new ErrorHandler("Username Already exists"));
-  }
+  const result = await uploadFilesToCloudinary([file]);
 
   const avatar = {
-    public_id: "ksnd",
-    url: "keoeme",
+    public_id: result[0].public_id,
+    url: result[0].url,
   };
 
-  const newUser = await User.create({ name, username, password, avatar, bio });
-  sendToken(res, newUser, 201, "User created successfully");
+  const user = await User.create({
+    name,
+    bio,
+    username,
+    password,
+    avatar,
+  });
+
+  sendToken(res, user, 201, "User created");
 });
 
 export const login = TryCatch(async (req, res, next) => {
@@ -150,7 +154,7 @@ export const acceptFriendRequest = TryCatch(async (req, res, next) => {
     .populate("sender", "name")
     .populate("receiver", "name");
 
-  if (!request) {   
+  if (!request) {
     return next(new ErrorHandler("Request not found", 404));
   }
 
@@ -207,29 +211,34 @@ export const getAllNotifications = TryCatch(async (req, res, next) => {
 });
 
 export const getMyFriends = TryCatch(async (req, res, next) => {
-    const chatId = req.query.chatId
-    
-    const chats = await Chat.find({members: req.user._id, groupChat: false }).populate("members", "name avatar")
-    console.log(chats)
-    const friends = chats.map(({members}) => {
-        const otherUser = getOtherMember(members, req.user._id)
-        return {
-            _id: otherUser._id,
-            name: otherUser.name,
-            avatar: otherUser.avatar.url,
-        }
-    })
-    if(chatId){
-        const chat = await Chat.findById(chatId)
-        const availableFrinds = friends.filter((i) => !chat.members.includes(i._id))
-        return res.status(200).json({
-            success: true,
-            friends: availableFrinds,
-        })
-    }else{
-        return res.status(200).json({
-            success: true,
-            friends,
-        })
-    }
-})
+  const chatId = req.query.chatId;
+
+  const chats = await Chat.find({
+    members: req.user._id,
+    groupChat: false,
+  }).populate("members", "name avatar");
+  console.log(chats);
+  const friends = chats.map(({ members }) => {
+    const otherUser = getOtherMember(members, req.user._id);
+    return {
+      _id: otherUser._id,
+      name: otherUser.name,
+      avatar: otherUser.avatar.url,
+    };
+  });
+  if (chatId) {
+    const chat = await Chat.findById(chatId);
+    const availableFrinds = friends.filter(
+      (i) => !chat.members.includes(i._id)
+    );
+    return res.status(200).json({
+      success: true,
+      friends: availableFrinds,
+    });
+  } else {
+    return res.status(200).json({
+      success: true,
+      friends,
+    });
+  }
+});

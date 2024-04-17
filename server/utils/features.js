@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import { v4 as uuid } from "uuid";
+import { v2 as cloudinary } from "cloudinary";
+import { getBase64 } from "../lib/helper.js";
 
 const connectDB = (uri) => {
   mongoose
@@ -27,12 +30,43 @@ const sendToken = (res, user, code, message) => {
     });
 };
 
-const emitEvent = (req,event,users,data)=>{
-  console.log("event",event)
-}
+const emitEvent = (req, event, users, data) => {
+  console.log("event", event);
+};
 
-const deletFilesFromCloudinary = async(cloudinary_id)=>{
+const uploadFilesToCloudinary = async (files) => {
+  const uploadPromises = files.map((file) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(
+        getBase64(file),
+        {
+          resource_type: "auto",
+          public_id: uuid(),
+        },
+        (err, result) => {
+          if (err) return reject(err);
+          resolve(result);
+        }
+      );
+    });
+  });
 
-}
+  const results = await Promise.all(uploadPromises);
+  const formattedResult = results.map((result) => {
+    return {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+  });
+  return formattedResult;
+};
 
-export { connectDB, sendToken, emitEvent, deletFilesFromCloudinary };
+const deletFilesFromCloudinary = async (cloudinary_id) => {};
+
+export {
+  connectDB,
+  sendToken,
+  emitEvent,
+  deletFilesFromCloudinary,
+  uploadFilesToCloudinary,
+};

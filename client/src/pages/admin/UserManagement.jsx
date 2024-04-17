@@ -60,12 +60,7 @@ const UserManagement = () => {
   }, []);
   return (
     <AdminLayout>
-      <Table
-        heading={"all users"}
-        columns={columns}
-        rows={rows}
-        rowHeight={50}
-      />
+      <Table heading={"All Users"} columns={columns} rows={rows} />
     </AdminLayout>
   );
 };
